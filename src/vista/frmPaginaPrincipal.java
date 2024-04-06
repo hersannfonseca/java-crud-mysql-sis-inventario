@@ -2,6 +2,7 @@ package vista;
 
 import controlador.ControllerProducto;
 import controlador.ControllerProveedor;
+import controlador.ControllerReporte;
 import controlador.ControllerUsuario;
 import helpers.Helpers;
 
@@ -214,7 +215,13 @@ public final class frmPaginaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnProductosPorFechaCaducidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosPorFechaCaducidadActionPerformed
-
+        frmProductosPorFechaCaducidad obj = new frmProductosPorFechaCaducidad();
+        desktopPane.add(obj);
+        ControllerReporte con = new ControllerReporte(obj);
+        con.iniciar();
+        obj.toFront();
+        obj.setLocation(desktopPane.getWidth() / 2 - obj.getWidth() / 2, desktopPane.getHeight() / 2 - obj.getHeight() / 2);
+        obj.setVisible(true);
     }//GEN-LAST:event_btnProductosPorFechaCaducidadActionPerformed
 
     /**

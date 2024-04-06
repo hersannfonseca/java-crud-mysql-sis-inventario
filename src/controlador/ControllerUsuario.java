@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import modelo.Usuario;
 import modelo.UsuarioDAO;
 import vista.frmUsuario;
@@ -25,7 +24,6 @@ public class ControllerUsuario implements ActionListener {
     UsuarioDAO usuariodao = new UsuarioDAO();
     Usuario usuario = new Usuario();
     frmUsuario vistaUsuario = new frmUsuario();
-    DefaultTableModel modelo = new DefaultTableModel();
 
     public ControllerUsuario(frmUsuario frm) {
         this.vistaUsuario = frm;

@@ -5,6 +5,7 @@
 package modelo;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -129,5 +130,41 @@ public class ProductoDAO {
             System.err.println(ex.toString());
         }
     }
+    
+    public void filtrarTablaProductosPorFechaCaducidad(JTable table, Date inicio, Date fin) {
 
+        String[] titulos = {"idProducto", "descripcion", "unidades", "categoria", "precio", "activo", "fechaCaducidad", "idProveedor", "nombreProveedor", "idUsuario", "nombreUsuario"};
+        String[] registros = new String[11];
+        String sql = "SELECT productos.idProducto, productos.descripcion, productos.unidades, productos.categoria, productos.precio, productos.activo, productos.fechaCaducidad, productos.idProveedor, proveedores.nombreProveedor, productos.idUsuario, usuarios.nombreUsuario "
+                + "FROM productos "
+                + "INNER JOIN proveedores "
+                + "ON productos.idProveedor = proveedores.idProveedor "
+                + "INNER JOIN usuarios "
+                + "ON productos.idUsuario = usuarios.idUsuario "
+                + "WHERE DATE(productos.fechaCaducidad) BETWEEN '" + inicio + "' AND '" + fin + "'";
+        DefaultTableModel model = new DefaultTableModel(null, titulos);
+
+        try {
+            con = conectar.getConnection();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                registros[0] = rs.getString("idProducto");
+                registros[1] = rs.getString("descripcion");
+                registros[2] = rs.getString("unidades");
+                registros[3] = rs.getString("categoria");
+                registros[4] = rs.getString("precio");
+                registros[5] = rs.getString("activo");
+                registros[6] = rs.getString("fechaCaducidad");
+                registros[7] = rs.getString("idProveedor");
+                registros[8] = rs.getString("nombreProveedor");
+                registros[9] = rs.getString("idUsuario");
+                registros[10] = rs.getString("nombreUsuario");
+                model.addRow(registros);
+            }
+            table.setModel(model);
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+    }
 }
